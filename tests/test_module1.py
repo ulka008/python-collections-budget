@@ -9,7 +9,7 @@ from os import path
 @pytest.mark.test_task1_module1
 def test_task1_module1():
     assert path.exists('budget/FrequentExpenses.py'), 'Did you create a file named `FrequentExpenses.py` ?'
-    assert 'Expense' in dir(FrequentExpenses), 'Did you add `from . import Expense` to the top of the file?'
+    assert 'Expense' in dir(FrequentExpenses), 'Have you imported the built-in `collections` library?'
 
 # expenses = Expense.Expenses()
 @pytest.mark.test_task2_module1
@@ -19,35 +19,24 @@ def test_task2_module1():
 
 # spending_categories = []
 @pytest.mark.test_task3_module1
-def test_task3_module1():
+def test_spending_categories_init_module1():
     assert 'spending_categories' in get_assignments(FrequentExpenses), 'Are you initializing `spending_categories` to an empty list?'
 
-    target_id_bool = False 
-    iter_value_id_bool = False 
-    iter_attr_bool = False
-
-    try:
-        target_id_bool = get_for_loops(FrequentExpenses, 'dict')[0]['target:id'] == 'expense'
-        iter_value_id_bool = get_for_loops(FrequentExpenses, 'dict')[0]['iter:value:id'] == 'expenses'
-        iter_attr_bool = get_for_loops(FrequentExpenses, 'dict')[0]['iter:attr'] == 'list'
-    except:
-        pass
+    target_id_bool = get_for_loops(FrequentExpenses, 'dict')[0]['target:id'] == 'expense'
+    iter_value_id_bool = get_for_loops(FrequentExpenses, 'dict')[0]['iter:value:id'] == 'expenses'
+    iter_attr_bool = get_for_loops(FrequentExpenses, 'dict')[0]['iter:attr'] == 'list'
     message = 'Do you have a `for` loop that loops through the `expenses.list`?'
     assert target_id_bool and iter_value_id_bool and iter_attr_bool, message
 
-    body_bool = False
-    try:
-        body_bool = get_for_loops(FrequentExpenses, 'dict')[0]['body'] == 'spending_categories:append:expense:category'
-    except:
-        pass
-    message = 'Did you call `spending_categories.append()` with `expense.category` inside the for loop?'
+    body_bool = get_for_loops(FrequentExpenses, 'dict')[0]['body'] == 'spending_categories:append:expense:category'
+    message = 'Did you call `spendingCategories.append()` with `expense.category` inside the for loop?'
     assert body_bool, message
 
 # import collections
 @pytest.mark.test_task4_module1
 def test_task4_module1():
     assert 'collections' in dir(FrequentExpenses), 'Have you imported the built-in `collections` library?'
-    assert 'spending_counter:collections:Counter:spending_categories' in get_assignments(FrequentExpenses), 'Did you call `collections.Counter()` with argument `spending_categories` and assign to `spending_counter`?'
+    assert 'spending_counter:collections:Counter:spending_categories' in get_assignments(FrequentExpenses), 'Did you call `collections.Counter()` with argument `spendingCategories` and assign to `spendingCounter`?'
 
 # top5 = spending_counter.most_common(5)
 @pytest.mark.test_task5_module1
@@ -78,5 +67,3 @@ def test_task9_module1():
     # plt.show()
     assert 'plt:show' in get_calls(FrequentExpenses), 'Did you call `plt.show()`?'
     # print(get_calls(FrequentExpenses))
-
-

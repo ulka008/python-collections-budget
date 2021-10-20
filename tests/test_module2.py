@@ -138,11 +138,9 @@ def test_task4_module2():
 
                                     for item in z.body:
                                         aug_assign = utils.get_augassignments_from_child(item)
-                                        assign = utils.get_assignments_from_child(item)
                                         func_call = utils.get_calls_from_child(item)
-                                        
-                                        if ('self:sum_expenses:item' in aug_assign or 
-                                            'self:sum_expenses:self:sum_expenses:item' in assign):
+
+                                        if ('self:sum_expenses:item' in aug_assign):
                                             sum_exp_inc_found = True
                                         if ('self:expenses:append:item' in func_call):
                                             exp_append_item_found = True
@@ -155,9 +153,8 @@ def test_task4_module2():
     
     assert append_def_found, 'Did you define the method `def append(self, item)`?'
     assert self_found and sum_expenses_found and op_add_found and lt_found and self_budget_found, 'Add an `if` statement that checks if `self.sum_expenses+item < self.budget`.'
-    assert exp_append_item_found, 'Inside the if statement, did you call `self.expenses.append(item)`?'
     assert sum_exp_inc_found, 'Inside the if statement, did you call `self.sum_expenses += item`?'
-    
+    assert exp_append_item_found, 'Inside the if statement, did you call `self.expenses.append(item)`?'
 
 # Add overages in append()
 @pytest.mark.test_task5_module2
@@ -186,10 +183,7 @@ def test_task5_module2():
                                     for item in z.orelse:
                                         aug_assign = utils.get_augassignments_from_child(item)
                                         func_call = utils.get_calls_from_child(item)
-                                        assign = utils.get_assignments_from_child(item)
-                                        
-                                        if ('self:sum_overages:item' in aug_assign or 
-                                            'self:sum_overages:self:sum_overages:item' in assign):
+                                        if ('self:sum_overages:item' in aug_assign):
                                             sum_over_inc_found = True
                                         if ('self:overages:append:item' in func_call):
                                             over_append_item_found = True                       
@@ -198,9 +192,8 @@ def test_task5_module2():
             pass
     
     assert append_def_found, 'Did you define the method `def append(self, item)`?'
-    assert over_append_item_found, 'Inside the else statement, did you call `self.overages.append(item)`?'
     assert sum_over_inc_found, 'Inside the else statement, did you call `self.sum_overages+=item`?'
-    
+    assert over_append_item_found, 'Inside the else statement, did you call `self.overages.append(item)`?'
 
 # Create __len__()
 @pytest.mark.test_task6_module2
@@ -304,7 +297,7 @@ def test_task10_module2():
             pass
     
     assert for_expenses_found, 'Did you create a for loop that iterates `expenses.list`?'
-    assert append_call_found, 'Did you call `append(expense.amount)` on `myBudgetList`?'
+    assert append_call_found, 'Did you call `append(n.amount)` on `myBudgetList`?'
 
 # Print length of BudgetList
 @pytest.mark.test_task11_module2
@@ -342,3 +335,4 @@ def test_task12_module2():
         main_call_found = True
 
     assert main_call_found, 'Did you add a conditional that checks if `__name__ == "__main__"` that runs `main()`?'
+    
