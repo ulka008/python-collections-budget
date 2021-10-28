@@ -1,6 +1,5 @@
 import pytest
-import matplotlib
-matplotlib.use('Agg')
+import ast
 from .utils import get_assignments, get_calls, get_for_loops
 from budget import FrequentExpenses
 from os import path
